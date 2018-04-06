@@ -267,9 +267,8 @@ class Swarm:
     def calculate_dt(self):
         size = self._will_step.sum()
         if self.dt_mean is not None and self.dt_std is not None:
-            abs_rnd = np.abs(np.random.normal(self.dt_mean, self.dt_std,
-                                               size=size))
-            self.dt = np.maximum(1, abs_rnd).astype(int)
+            norm_rnd = np.random.normal(self.dt_mean, self.dt_std, size=size)
+            self.dt = np.maximum(1, norm_rnd).astype(int)
         else:
             self.dt = np.ones(size, dtype=int) * self._env.n_repeat_action
 
